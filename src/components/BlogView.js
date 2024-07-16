@@ -133,7 +133,7 @@ export default function BlogView({ blog, onBlogDeleted }) {
                             <h5>Comments</h5>
                             {comments.map((comment, index) => (
                                 <div key={index} className="comment mb-3">
-                                    <p className="text-muted mb-1">
+                                    <p className="warning mb-1">
                                         By {comment.authorEmail} | {new Date(comment.createdAt).toLocaleDateString()}
                                     </p>
                                     <p>{comment.content}</p>
