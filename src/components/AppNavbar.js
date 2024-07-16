@@ -11,7 +11,7 @@ export default function AppNavbar() {
 
     return (
         <Navbar expand="lg" bg='light' className='fixed-top'>
-            <Container fluid className='px-5'>
+            <Container fluid >
                 <Navbar.Brand as={Link} to="/">BLOGS.PH</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

@@ -81,10 +81,10 @@ function App() {
     },
     particles: {
       color: {
-        value: '#ffffff',
+        value: '#bbbbbb', // Less bright particle color
       },
       links: {
-        color: '#ffffff',
+        color: '#bbbbbb', // Less bright link color
         distance: 150,
         enable: true,
         opacity: 0.5,

@@ -111,7 +111,7 @@ export default function BlogView({ blog, onBlogDeleted }) {
                 <Col md={8}>
                     <div className="blog-header text-start">
                         <h1>{title}</h1>
-                        <p className="text-muted">
+                        <p className="warning">
                             By {authorEmail} | {new Date(createdAt).toLocaleDateString()}
                         </p>
                     </div>
