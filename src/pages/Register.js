@@ -79,7 +79,7 @@ export default function Register() {
 
     return (
         user.id !== null ?
-            <Navigate to="/login" />
+            <Navigate to="/blogs" />
         :
             <Form onSubmit={registerUser} className="my-5 mx-auto" style={{ maxWidth: '400px' }}>
                 <h1 className="text-center mb-5">Register</h1>

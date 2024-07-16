@@ -10,7 +10,7 @@ export default function AppNavbar() {
     const { user } = useContext(UserContext);
 
     return (
-        <Navbar expand="lg" bg='light'>
+        <Navbar expand="lg" bg='light' className='fixed-top'>
             <Container fluid className='px-5'>
                 <Navbar.Brand as={Link} to="/">BLOGS.PH</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
