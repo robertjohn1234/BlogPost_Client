@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faComment } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faComment, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import AddComment from '../components/AddComment';
 import DeleteBlog from '../components/DeleteBlog';
 import DeleteComment from '../components/DeleteComment';
 import EditComment from '../components/EditComment';
+import EditBlog from '../components/EditBlog';
 import UserContext from '../UserContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -120,6 +121,10 @@ export default function ReadBlog({ onBlogDeleted }) {
         setComments(updatedComments);
     }
 
+    function handleBlogUpdated(updatedBlog) {
+        setBlog(updatedBlog);
+    }
+
     if (!blog) {
         return <p>Loading...</p>;
     }
@@ -144,6 +149,7 @@ export default function ReadBlog({ onBlogDeleted }) {
                         <Button variant="link" className="me-2" onClick={toggleComments}>
                             <FontAwesomeIcon icon={faComment} /> {showComments ? 'Hide Comments' : 'Show Comments'}
                         </Button>
+                        <EditBlog blogId={blogId} currentTitle={blog.title} currentContent={blog.content} onUpdate={handleBlogUpdated} />
                         <DeleteBlog blogId={blogId} onDelete={onBlogDeleted} />
                     </div>
                     
@@ -157,11 +163,13 @@ export default function ReadBlog({ onBlogDeleted }) {
                                     </p>
                                     <p>{comment.content}</p>
                                     <div className="comment-actions">
-                                        <EditComment
-                                            commentId={comment._id}
-                                            content={comment.content}
-                                            onUpdate={handleCommentUpdated}
-                                        />
+                                        {!user.isAdmin && (
+                                            <EditComment
+                                                commentId={comment._id}
+                                                content={comment.content}
+                                                onUpdate={handleCommentUpdated}
+                                            />
+                                        )}
                                         <DeleteComment
                                             blogId={blogId}
                                             commentId={comment._id}

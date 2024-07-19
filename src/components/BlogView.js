@@ -138,11 +138,13 @@ export default function BlogView({ blog, onBlogDeleted }) {
                                     </p>
                                     <p>{comment.content}</p>
                                     <div className="comment-actions">
-                                        <EditComment
-                                            commentId={comment._id}
-                                            content={comment.content}
-                                            onUpdate={handleCommentUpdated}
-                                        />
+                                    {!user.isAdmin && (
+                                            <EditComment
+                                                commentId={comment._id}
+                                                content={comment.content}
+                                                onUpdate={handleCommentUpdated}
+                                            />
+                                        )}
                                         <DeleteComment
                                             blogId={blogId}
                                             commentId={comment._id}
