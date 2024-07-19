@@ -1,6 +1,6 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { loadFull } from 'tsparticles';
 import Particles from 'react-tsparticles';
