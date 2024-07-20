@@ -8,20 +8,20 @@ export default function BlogList() {
         fetchBlogs();
     }, []);
 
-    const fetchBlogs = () => {
-        fetch(`https://blogpost-api-g0ab.onrender.com/blogs`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.blogs) {
-                    setBlogs(data.blogs);
-                } else {
-                    setBlogs([]);
-                    console.error('Failed to fetch blogs:', data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching blogs:', error);
-            });
+    const fetchBlogs = async () => {
+        try {
+            const response = await fetch('https://blogpost-api-g0ab.onrender.com/blogs');
+            const data = await response.json();
+            if (response.ok && data.blogs) {
+                setBlogs(data.blogs);
+            } else {
+                setBlogs([]);
+                console.error('Failed to fetch blogs:', data.error);
+            }
+        } catch (error) {
+            console.error('Error fetching blogs:', error);
+            setBlogs([]);
+        }
     };
 
     const handleBlogDeleted = (deletedBlogId) => {

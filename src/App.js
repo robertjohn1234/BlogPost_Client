@@ -44,7 +44,7 @@ function App() {
           });
         }
       });
-  }, []);
+  }, [user]);
 
   const particlesInit = async (main) => {
     await loadFull(main);

@@ -10,6 +10,7 @@ import EditComment from './EditComment';
 import UserContext from '../UserContext';
 
 export default function BlogView({ blog, onBlogDeleted }) {
+    
     const { user } = useContext(UserContext);
     const { title, authorEmail, createdAt, content, _id: blogId, likes } = blog;
     const [comments, setComments] = useState([]);
@@ -17,6 +18,9 @@ export default function BlogView({ blog, onBlogDeleted }) {
     const [likeCount, setLikeCount] = useState(likes.length);
     const [userLiked, setUserLiked] = useState(false); // To handle if the user has liked the blog
     const navigate = useNavigate();
+
+    console.log(user);
+    console.log(comments);
 
     useEffect(() => {
         fetchComments();
@@ -106,6 +110,7 @@ export default function BlogView({ blog, onBlogDeleted }) {
     };
 
     return (
+     
         <Container className="mt-5">
             <Row className="justify-content-center">
                 <Col md={8}>
@@ -125,7 +130,10 @@ export default function BlogView({ blog, onBlogDeleted }) {
                         <Button variant="link" className="me-2" onClick={toggleComments}>
                             <FontAwesomeIcon icon={faComment} /> {showComments ? 'Hide Comments' : 'Show Comments'}
                         </Button>
-                        <DeleteBlog blogId={blogId} onDelete={onBlogDeleted} />
+                        {(blog.authorId === user.id || user.isAdmin) && (
+                            <DeleteBlog blogId={blogId} onDelete={onBlogDeleted} />
+                        )}
+                        
                     </div>
                     
                     {showComments && (
@@ -137,19 +145,21 @@ export default function BlogView({ blog, onBlogDeleted }) {
                                         By {comment.authorEmail} | {new Date(comment.createdAt).toLocaleDateString()}
                                     </p>
                                     <p>{comment.content}</p>
-                                    <div className="comment-actions">
-                                    {!user.isAdmin && (
+                                    <div className="comment-actions">                                     
+                                        {(comment.authorId === user.id || user.isAdmin) && (                                          
+                                            <DeleteComment
+                                                blogId={blogId}
+                                                commentId={comment._id}
+                                                onDelete={handleCommentDeleted}
+                                            />                                          
+                                        )}
+                                        {comment.authorId === user.id && (
                                             <EditComment
                                                 commentId={comment._id}
                                                 content={comment.content}
                                                 onUpdate={handleCommentUpdated}
                                             />
                                         )}
-                                        <DeleteComment
-                                            blogId={blogId}
-                                            commentId={comment._id}
-                                            onDelete={handleCommentDeleted}
-                                        />
                                     </div>
                                 </div>
                             ))}

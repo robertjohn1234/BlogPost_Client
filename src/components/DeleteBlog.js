@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 export default function DeleteBlog({ blogId, onDelete }) {
 
     const handleDelete = () => {
-        let token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
         
         Swal.fire({
             title: 'Are you sure?',
@@ -32,21 +32,22 @@ export default function DeleteBlog({ blogId, onDelete }) {
                             'Your blog post has been deleted.',
                             'success'
                         );
-                        onDelete(blogId);
-                    } else if(data.auth === 'Failed. No Token') {
+                        if (typeof onDelete === 'function') {
+                            onDelete(blogId);
+                        }
+                    } else if (data.auth === 'Failed. No Token') {
                         Swal.fire(
                             'Error!',
                             'Please Login and Try Again',
                             'error'
                         );
-                    } else if(data.auth === 'Failed')  {
+                    } else if (data.auth === 'Failed') {
                         Swal.fire(
                             'Error!',
-                            'You are now allowed to delete this comment.',
+                            'You are not allowed to delete this blog.',
                             'error'
                         );
-                    } 
-                    else {
+                    } else {
                         Swal.fire(
                             'Error!',
                             data.message || 'Failed to delete the blog post.',
